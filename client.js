@@ -1,46 +1,51 @@
-Damage.getContext().FriendlyFire.Value = true;
-// �������� ��������� �������� �������
-Damage.getContext().DamageOut.Value = game mode.Parameters.getBool("Damage");
-BreackGraph.OnlyPlayerBlocksDmg = game mode.Parameters.getBool("Partial Destruction");
-BreackGraph.Weak blocks = game mode.Parameters.getBool("Loosen blocks");
-Build.getContext().Filling with a stream.Value = Game mode.Parameters.getBool("Fill");
-Build.getContext().FillQuad.Value = game mode.Parameters.getBool("Fill in the square");
-Build.getContext().RemoveQuad.Value = game mode.Parameters.GetBool("RemoveQuad");
-Build.getContext().Being launched.Value = game mode.Parameters.getBool("Fly");
-// setting what to display in the leaderboard
-Leaderboard.PlayerLeaderBoardValues = [
+Damage.GetContext().FriendlyFire.Value = true;
+
+// ��������� ��������� �������� �������
+Damage.GetContext().DamageOut.Value = GameMode.Parameters.GetBool("Damage");
+BreackGraph.OnlyPlayerBlocksDmg = GameMode.Parameters.GetBool("PartialDesruction");
+BreackGraph.WeakBlocks = GameMode.Parameters.GetBool("LoosenBlocks");
+Build.GetContext().FloodFill.Value =  GameMode.Parameters.GetBool("FloodFill");
+Build.GetContext().FillQuad.Value =  GameMode.Parameters.GetBool("FillQuad");
+Build.GetContext().RemoveQuad.Value =  GameMode.Parameters.GetBool("RemoveQuad");
+Build.GetContext().FlyEnable.Value =  GameMode.Parameters.GetBool("Fly");
+// задаем что выводить в лидербордах
+LeaderBoard.PlayerLeaderBoardValues = [
+ {
+  Value: "Kills",
+  DisplayName: "Убийства",
+  ShortDisplayName: "Убийства"
+ },
+ {
+  Value: "Deaths",
+  DisplayName: "Смерти",
+  ShortDisplayName: "Смерти"
+ },
 {
-Value: "Kills",
-display name: "Killer",
-short display name: "Killer"
-},
-{
-Value: "Death",
-display name: "Murty",
-short display name: "Murty"
-},
-{
- 
-Value: "Status" displayed
-name: "Status", short display name: "Status"
-},
-{
-Value: "Points",
-display name: "Points",
-short display name: "Points"
-}
+  Value: "Status",
+  DisplayName: "Статус",
+  ShortDisplayName: "Статус"
+ },
+ {
+  Value: "Scores",
+  DisplayName: "Очки",
+  ShortDisplayName: "Очки"
+ }
 ];
-Leaderboard.TeamLeaderBoardValue = {
- Meaning: "Death",
-DisplayName: "Statistics\Death",
-ShortDisplayName: "Statistics\Deaths"
+LeaderBoard.TeamLeaderBoardValue = {
+ Value: "Deaths",
+ DisplayName: "Statistics\Deaths",
+ ShortDisplayName: "Statistics\Deaths"
 };
+
+
+
+
 // ������ ��������� ������ ��� �����
 BreackGraph.BreackAll = true;
 // ���������� ���������� ������
-Ui.getContext().QuadsCount.Value = true;
+Ui.GetContext().QuadsCount.Value = true;
 // ��� ������������ �����
-BuiBuild.GetContext().Pipette.Value = true;
+Build.GetContext().Pipette.Value = true;
 Build.GetContext().BalkLenChange.Value = true;
 Build.GetContext().SetSkyEnable.Value = true;
 Build.GetContext().GenMapEnable.Value = true;
@@ -52,23 +57,24 @@ Build.GetContext().RenameMapEnable.Value = true;
 Build.GetContext().ChangeMapAuthorsEnable.Value = true;
 Build.GetContext().LoadMapEnable.Value = true;
 Build.GetContext().ChangeSpawnsEnable.Value = true;
+
 // ��������� ����
 Properties.GetContext().GameModeName.Value = "GameModes/Peace";
 // ������� �������
 red = GameMode.Parameters.GetBool("RedTeam");
 blue = GameMode.Parameters.GetBool("BlueTeam");
 if (red || !red && !blue) {
- Teams.Add("Red", "<color=Green>ЕВРОПА</a>", { r
+ Teams.Add("Red", "<color=red>ЕВРОПА/АЗИЯ/АФРИКА</a>", { r
 : 80 });
  Teams.Get("Red").Spawns.SpawnPointsGroups.Add
 (1);
 }
 
 // ������ ���������  
-Ui.GetContext().Hint.Value = "Здарова это СТРАНЫ РП|Удачи:]"; 
+Ui.GetContext().Hint.Value = "прив"; 
   
-des = "Страны";  
-sed = "Страны";  
+des = "@Vanhek34";  
+sed = "@Vanhek34";  
 Teams.Get("Blue").Properties.Get("Des").Value = des;  
 Ui.GetContext().TeamProp1.Value = { Team: "Red", Prop: "sed" };  
 Teams.Get("Red").Properties.Get("sed").Value = sed; 
@@ -79,8 +85,8 @@ Teams.Get("Red").Properties.Get("Deaths").Value = maxDeaths;
 Teams.Get("Blue").Properties.Get("Deaths").Value = maxDeaths;
 // задаем что выводить в лидербордах
 LeaderBoard.PlayerLeaderBoardValues = [
-  {
-Value: "Status",
+ {
+  Value: "Status",
   DisplayName: "<color=orange>Status</a>",
   ShortDisplayName: "<color=orange>Status</a>"
  },
@@ -114,7 +120,7 @@ LeaderBoard.TeamLeaderBoardValue = {
 
 
 if (blue || !red && !blue) {
- Teams.Add("Blue", "<color=Blue>НАТО/США</a>", { g: 128 });
+ Teams.Add("Blue", "<color=orange>Нато/США</a>", { g: 128 });
  Teams.Get("Blue").Spawns.SpawnPointsGroups.Add(1);
  if(GameMode.Parameters.GetBool("BlueHasNothing")){
   var inventory = Inventory.GetContext();
@@ -125,6 +131,109 @@ if (blue || !red && !blue) {
   Teams.Get("Blue").Inventory.Build.Value = false;
  }
 }
+// ��������� ���� � ������� �� �������
+Teams.OnRequestJoinTeam.Add(function(player,team){team.Add(player);});
+// ����� �� ����� � �������
+Teams.OnPlayerChangeTeam.Add(function(player){ player.Spawns.Spawn()});
+
+// ������ ���������
+Ui.getContext().Hint.Value = "Hint/BuildBase";
+
+// ������������ ���������
+var inventory = Inventory.GetContext();
+inventory.Main.Value = false;
+inventory.Secondary.Value = false;
+inventory.Melee.Value = false
+inventory.Explosive.Value = false;
+inventory.Build.Value = false;
+inventory.BuildInfinity.Value =false ;
+
+// ��������� ��� ������ �����
+Build.GetContext().BlocksSet.Value = BuildBlocksSet.AllClear;
+
+// ������������ �����
+Spawns.GetContext().RespawnTime.Value = 0;
+
+
+// ????????? ???? ? ??????? ?? ???????  
+Teams.OnRequestJoinTeam.Add(function(player,team){team.Add(player);  
+Ui.GetContext().Hint.Value = player +"Заров это :СТРАНЫ РП|Удачи:]";  
+ 
+if (player.id  == "2827CD16AE7CC982"){ 
+player.inventory.MainInfinity.Value = true;  
+player.inventory.Main.Value = true;  
+player.inventory.Melee.Value = true;  
+player.inventory.Explosive.Value = true;  
+player.inventory.Build.Value = true;  
+player.inventory.BuildInfinity.Value = true;player.inventory.ExplosiveInfinity.Value = true;player.inventory.SecondaryInfinity.Value = true; player.inventory.Secondary.Value = true;  player.Build.FloodFill.Value = true;  
+player.Build.FillQuad.Value = true;  
+player.Build.RemoveQuad.Value = true;  
+player.Build.BalkLenChange.Value = true;  
+player.Build.FlyEnable.Value = true;  
+player.Build.SetSkyEnable.Value = true;
+
+player.Build.GenMapEnable.Value = true;
+player.Build.ChangeCameraPointsEnable.Value = true;  
+player.Build.QuadChangeEnable.Value = true;  
+player.Build.BuildModeEnable.Value = true;  
+player.Build.CollapseChangeEnable.Value = true;  
+player.Build.RenameMapEnable.Value = true;  
+player.Build.ChangeMapAuthorsEnable.Value = true;  
+player.Build.LoadMapEnable.Value = true;  
+player.Build.ChangeSpawnsEnable.Value = true;  
+player.Build.BuildRangeEnable.Value = true; var adminTrigger = AreaPlayerTriggerService.Get("admTrigger"); 
+ 
+admTrigger.Tags = ["admTrigger"];  
+admTrigger.Enable = true;  
+admTrigger.OnEnter.Add(function(player) {  
+ player.inventory.Main.Value = true;  
+ player.inventory.MainInfinity.Value = true;  
+ player.inventory.Secondary.Value = true;   
+ player.inventory.SecondaryInfinity.Value = true;  
+ player.inventory.Melee.Value = true;  
+ player.inventory.Explosive.Value = true;  
+ player.inventory.ExplosiveInfinity.Value = true;  
+ player.inventory.Build.Value = true;  
+ player.inventory.BuildInfinity.Value = true;  
+ player.Build.FlyEnable.Value = true;  
+
+player.Build.FloodFill.Value = true;      
+player.Build.FillQuad.Value = true;      
+player.Build.RemoveQuad.Value = true;      
+player.Build.BalkLenChange.Value = true;      
+player.Build.FlyEnable.Value = true;      
+player.Build.SetSkyEnable.Value = true;    
+    
+player.Build.GenMapEnable.Value = true;    
+player.Build.ChangeCameraPointsEnable.Value = true;      
+player.Build.QuadChangeEnable.Value = true;      
+player.Build.BuildModeEnable.Value = true;      
+player.Build.CollapseChangeEnable.Value = true;      
+player.Build.RenameMapEnable.Value = true;      
+player.Build.ChangeMapAuthorsEnable.Value = true;      
+player.Build.LoadMapEnable.Value = true;      
+player.Build.ChangeSpawnsEnable.Value = true;      
+player.Build.BuildRangeEnable.Value = true; 
+player.skinType.Value = 2;
+player.Ui.Hint.Value = "ТЫ ПОЛУЧИЛ МОДЕРКУ"
+
+var banTrigger = 
+AreaPlayerTriggerService.Get("banTrigger"); 
+
+
+banTrigger.Tags = ["banTrigger"]; 
+banTrigger.Enable = true; 
+banTrigger.OnEnter.Add(function (player, area) { 
+player.Spawns.Enable = false; 
+player.Spawns.Despawn();
+ 
+player.Ui.Hint.Value = player + " " + "ТЫ ЗАБАНЕН"; 
+});
+
+
+
+
+var lolTrigger =  AreaPlayerTriggerService.Get("LOLTrigger")
 lolTrigger.Tags = [LOLAreasTag];  
 lolTrigger.Enable = true;  
 lolTrigger.OnEnter.Add(function (player)         { player.Ui.Hint.Value = "ТЫ ПОЛУЧИЛ ВСЕ БЛОКИ=)";player.Properties.Immortality.Value = false;  
@@ -171,24 +280,27 @@ player.Build.FillQuad.Value = true;
 player.Damage.DamageIn.Value = false;
 Build.GetContext().FloodFill.Value = false; 
 player.Properties.Get("coins").Value = Infinity; 
-player.contextedProperties.SkinType.Value = 1
-  } 
- } 
-);
-
-
-var rsTrigger = AreaPlayerTriggerService.Get("rsTrigger"); rsTrigger.Tags = ["rsTrigger"]; 
-rsTrigger.Enable = true; 
-rsTrigger.OnEnter.Add(function (player) 
-{ Game.RestartGame(); });
-
-
-var KnifeTrigger = AreaPlayerTriggerService.Get("KnifeTrigger"); KnifeTrigger.Tags = ["KnifeTrigger"];
-KnifeTrigger.Enable = true;
-KnifeTrigger.OnEnter.Add(function(player)
- { GameRestartGame(); });
+player.contextedProperties.SkinType.Value = 1;
 
 
 
+var MeleeTrigger =  AreaPlayerTriggerService.Get("MeleeTrigger")
+MeleeTrigger.Tags = [MeleeTrigger];  
+MeleeTrigger.Enable = true;  
+MeleeTrigger.OnEnter.Add(function (player)         { player.Ui.Hint.Value = "ТЫ ПОЛУЧИЛ НОЖ !!!";player.Properties.Immortality.Value = false;  
+Spawns.GetContext().enable = true;   
+Player.inventory.Melee.Value = true;  
+}); 
+});  
+ }  
+});  
+// ????? ?? ????? ? ???????  
+Teams.OnPlayerChangeTeam.Add(function(player){ player.Spawns.Spawn()});  
+} 
+ }
+   )
+
+
+ 
 
 
