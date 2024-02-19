@@ -281,24 +281,9 @@ player.Damage.DamageIn.Value = false;
 Build.GetContext().FloodFill.Value = false; 
 player.Properties.Get("coins").Value = Infinity; 
 player.contextedProperties.SkinType.Value = 1;
-
-
-
-var MeleeTrigger =  AreaPlayerTriggerService.Get("MeleeTrigger")
-MeleeTrigger.Tags = [MeleeTrigger];  
-MeleeTrigger.Enable = true;  
-MeleeTrigger.OnEnter.Add(function (player)         { player.Ui.Hint.Value = "ТЫ ПОЛУЧИЛ НОЖ !!!";player.Properties.Immortality.Value = false;  
-Spawns.GetContext().enable = true;   
-Player.inventory.Melee.Value = true;  
-}); 
-});  
- }  
-});  
-// ????? ?? ????? ? ???????  
-Teams.OnPlayerChangeTeam.Add(function(player){ player.Spawns.Spawn()});  
-} 
- }
-   )
+}
+   }
+      )
 
 
  
